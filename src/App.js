@@ -1,5 +1,6 @@
 import axios from "axios";
 import React from "react";
+import TrainingRegistrationForm from "./components/TrainingRegistrationForm";
 
 class App extends React.Component {
   constructor(props) {
@@ -17,7 +18,7 @@ class App extends React.Component {
     axios.get(`${process.env.REACT_APP_BACKEND_URL}/index`).then((res) => {
       this.setState({
         trainings: res.data.trainings,
-        achievedSet: res.data.achievedSet,
+        achievedSet: new Set(res.data.achievedIds),
       });
     });
   }
@@ -46,6 +47,15 @@ class App extends React.Component {
     });
   }
 
+  handleClick(e, trainingId) {
+    axios.post(`${process.env.REACT_APP_BACKEND_URL}/achievement/${trainingId}`)
+      .then((res) => {
+        if (res.status !== 200) return;
+        this.getIndexData();
+      });
+    e.preventDefault();
+  }
+
   render() {
     return (
       <div>
@@ -54,34 +64,21 @@ class App extends React.Component {
         <ul>
           {this.state.trainings.map((tr) => (
             <li key={tr.id}>
-              {tr.name} {tr.velocity} {tr.unit}
+              {tr.name} {tr.velocity} {tr.unit}&nbsp;
+              {this.state.achievedSet.has(tr.id)
+                ? <span>✅</span>
+                : <button onClick={(e) => this.handleClick(e, tr.id)}>達成</button>
+              }
             </li>
           ))}
         </ul>
-        <form onSubmit={this.handleSubmit.bind(this)}>
-          <input
-            type="text"
-            name="trainingName"
-            value={this.state.trainingName}
-            onChange={this.handleChange.bind(this)}
-          />
-          <br />
-          <input
-            type="number"
-            name="trainingVelocity"
-            value={this.state.trainingVelocity}
-            onChange={this.handleChange.bind(this)}
-          />
-          <br />
-          <input
-            type="text"
-            name="trainingUnit"
-            value={this.state.trainingUnit}
-            onChange={this.handleChange.bind(this)}
-          />
-          <br />
-          <input type="submit" value="登録" />
-        </form>
+        <TrainingRegistrationForm
+          trainingName={this.state.trainingName}
+          trainingVelocity={this.state.trainingVelocity}
+          trainingUnit={this.state.trainingUnit}
+          handleSubmit={this.handleSubmit.bind(this)}
+          handleChange={this.handleChange.bind(this)}
+        />
         <button type="button">ログアウトする</button>
       </div>
     );
