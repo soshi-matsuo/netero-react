@@ -1,6 +1,8 @@
 import axios from "axios";
 import React from "react";
-import TrainingRegistrationForm from "./components/TrainingRegistrationForm";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import Index from "./pages/Index";
+import Detail from "./pages/Detail";
 
 class App extends React.Component {
   constructor(props) {
@@ -48,7 +50,8 @@ class App extends React.Component {
   }
 
   handleClick(e, trainingId) {
-    axios.post(`${process.env.REACT_APP_BACKEND_URL}/achievement/${trainingId}`)
+    axios
+      .post(`${process.env.REACT_APP_BACKEND_URL}/achievement/${trainingId}`)
       .then((res) => {
         if (res.status !== 200) return;
         this.getIndexData();
@@ -58,29 +61,23 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <h1>NETERO</h1>
-        <p>Welcome to Netero</p>
-        <ul>
-          {this.state.trainings.map((tr) => (
-            <li key={tr.id}>
-              {tr.name} {tr.velocity} {tr.unit}&nbsp;
-              {this.state.achievedSet.has(tr.id)
-                ? <span>✅</span>
-                : <button onClick={(e) => this.handleClick(e, tr.id)}>達成</button>
-              }
-            </li>
-          ))}
-        </ul>
-        <TrainingRegistrationForm
-          trainingName={this.state.trainingName}
-          trainingVelocity={this.state.trainingVelocity}
-          trainingUnit={this.state.trainingUnit}
-          handleSubmit={this.handleSubmit.bind(this)}
-          handleChange={this.handleChange.bind(this)}
-        />
-        <button type="button">ログアウトする</button>
-      </div>
+      <Router>
+        <Switch>
+          <Route path="/detail/:id" exact component={Detail} />
+          <Route path="/">
+            <Index
+              trainings={this.state.trainings}
+              achievedSet={this.state.achievedSet}
+              handleClick={this.handleClick.bind(this)}
+              trainingName={this.state.trainingName}
+              trainingVelocity={this.state.trainingVelocity}
+              trainingUnit={this.state.trainingUnit}
+              handleSubmit={this.handleSubmit.bind(this)}
+              handleChange={this.handleChange.bind(this)}
+            />
+          </Route>
+        </Switch>
+      </Router>
     );
   }
 }
