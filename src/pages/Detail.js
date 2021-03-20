@@ -35,7 +35,7 @@ class Detail extends React.Component {
                 </div>
                 <div>
                     <h2>達成カレンダー</h2>
-                    <p>{this.state.achievementDates}</p>
+                    <p>{JSON.stringify(this.state.achievementDates)}</p>
                 </div>
             </div>
         )
