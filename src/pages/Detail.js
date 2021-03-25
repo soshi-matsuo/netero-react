@@ -1,11 +1,11 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 const extractTrainingId = (pathname) => {
   return pathname.split("/")[2];
 };
 
-const Detail = (props) => {
+const Detail = props => {
   const [training, setTraining] = useState({});
   const [totalVelocity, setTotalVelocity] = useState(0);
   const [achievementDates, setAchievementDates] = useState([]);

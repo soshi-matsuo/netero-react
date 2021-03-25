@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import Input from "./Input";
 
-const TrainingRegistrationForm = (props) => {
+const TrainingRegistrationForm = props => {
   const [trainingName, setTrainingName] = useState("");
   const [trainingVelocity, setTrainingVelocity] = useState(0);
   const [trainingUnit, setTrainingUnit] = useState("");
@@ -18,6 +18,15 @@ const TrainingRegistrationForm = (props) => {
         if (res.status !== 200) return;
         props.getIndexData();
       });
+    props.setAlert({
+      active: true,
+      message: (
+        <React.Fragment>
+          <p>新しい鍛錬：{trainingName}を登録しました！</p>
+        </React.Fragment>
+      )
+    });
+    setTimeout(() => {props.setAlert({ active: false })}, 5000);
     e.preventDefault();
   };
 
