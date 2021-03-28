@@ -1,5 +1,9 @@
 const Navbar = (props) => {
-    return ();
+    return (
+        <a href={"/"}>
+            <h2>NETERO</h2>
+        </a>
+    );
 }
 
 export default Navbar;

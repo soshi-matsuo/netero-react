@@ -40,7 +40,6 @@ const Index = () => {
 
   return (
     <div>
-      <h1>NETERO</h1>
       <p>Welcome to Netero</p>
       {alert.active ? <Alert message={alert.message} /> : null}
       <ul>
