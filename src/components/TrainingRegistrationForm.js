@@ -4,7 +4,7 @@ import Input from "./Input";
 
 const TrainingRegistrationForm = props => {
   const [trainingName, setTrainingName] = useState("");
-  const [trainingVelocity, setTrainingVelocity] = useState(0);
+  const [trainingVelocity, setTrainingVelocity] = useState("");
   const [trainingUnit, setTrainingUnit] = useState("");
 
   const handleSubmit = (e) => {
@@ -32,7 +32,14 @@ const TrainingRegistrationForm = props => {
 
   const setTrainingProperties = {
     trainingName: (value) => setTrainingName(value),
-    trainingVelocity: (value) => setTrainingVelocity(value),
+    trainingVelocity: (value) => {
+      const valNum = parseInt(value);
+      if (isNaN(valNum)) {
+        setTrainingVelocity("");
+      } else {
+        setTrainingVelocity(valNum);
+      }
+    },
     trainingUnit: (value) => setTrainingUnit(value),
   };
   
@@ -41,29 +48,29 @@ const TrainingRegistrationForm = props => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="box py-5">
       <Input
-        type={"text"}
+        label={'鍛錬の名前'}
+        placeholder={'読書、腕立て伏せ、散歩'}
         name={"trainingName"}
         value={trainingName}
         onChange={handleChange}
       />
-      <br />
       <Input
-        type={"number"}
+        label={'鍛錬の量'}
+        placeholder={'1、10、30'}
         name={"trainingVelocity"}
         value={trainingVelocity}
         onChange={handleChange}
       />
-      <br />
       <Input
-        type={"text"}
+        label={'鍛錬の単位'}
+        placeholder={'時間、回、分'}
         name={"trainingUnit"}
         value={trainingUnit}
         onChange={handleChange}
       />
-      <br />
-      <input type="submit" value="登録" />
+      <input type="submit" value="登録" className="button"/>
     </form>
   );
 };

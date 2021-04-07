@@ -39,25 +39,29 @@ const Index = () => {
   };
 
   return (
-    <div>
-      <p>Welcome to Netero</p>
-      {alert.active ? <Alert message={alert.message} /> : null}
-      <ul>
-        {trainings.map((tr) => (
-          <li key={tr.id}>
-            <Link to={`/detail/${tr.id}`}>
-              {tr.name} {tr.velocity} {tr.unit}&nbsp;
-            </Link>
-            {achievedSet.has(tr.id) ? (
-              <span>✅</span>
-            ) : (
-              <button onClick={(e) => handleClick(e, tr.id, tr.name)}>達成</button>
-            )}
-          </li>
-        ))}
-      </ul>
-      <TrainingRegistrationForm getIndexData={getIndexData} setAlert={setAlert}/>
-      <button type="button">ログアウトする</button>
+    <div className="columns">
+      <div className="column is-three-fifths is-offset-one-fifth">
+        <p className="title is-1 is-size-3-mobile is-spaced has-text-centered">Welcome to Netero</p>
+        <p className="subtitle is-3 is-size-5-mobile is-spaced has-text-centered">今日の鍛錬</p>
+        {alert.active ? <Alert message={alert.message} /> : null}
+        <ul>
+          {trainings.map((tr) => (
+            <li key={tr.id} className="box content">
+              <Link to={`/detail/${tr.id}`}>
+                {tr.name} {tr.velocity} {tr.unit}&nbsp;
+              </Link>
+              {achievedSet.has(tr.id) ? (
+                <span>✅</span>
+              ) : (
+                <button onClick={(e) => handleClick(e, tr.id, tr.name)} className="button">達成</button>
+              )}
+            </li>
+          ))}
+        </ul>
+        <p className="subtitle is-3 is-size-5-mobile is-spaced has-text-centered mt-6">新しく鍛錬を登録する</p>
+        <TrainingRegistrationForm getIndexData={getIndexData} setAlert={setAlert}/>
+        <button type="button" className="button">ログアウトする</button>
+      </div>
     </div>
   );
 };

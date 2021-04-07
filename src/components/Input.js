@@ -1,11 +1,16 @@
 const Input = (props) => {
     return (
-        <input
-            type={props.type}
-            name={props.name}
-            value={props.value}
-            onChange={props.onChange}
-        />
+        <div className="field">
+            <label className="label">{props.label}</label>
+            <div className="control">
+                <input className="input"
+                    placeholder={props.placeholder}
+                    name={props.name}
+                    value={props.value}
+                    onChange={props.onChange}
+                />
+            </div>
+        </div>
     );
 };
 
