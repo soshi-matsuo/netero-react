@@ -28,40 +28,41 @@ const Detail = props => {
 
   return (
     <div>
-      <h1>
+      <h1 className="title is-1 has-text-centered">
         {training.name} {training.velocity} {training.unit}
       </h1>
       <div>
-        <h2>これまでの達成</h2>
-        <p>
+        <h2 className="subtitle is-4 has-text-centered mt-6">これまでの達成</h2>
+        <p className="title is-1 has-text-centered">
           {totalVelocity} {training.unit}
         </p>
       </div>
       <div>
-        <h2>達成カレンダー</h2>
-        <p>{JSON.stringify(achievementDates)}</p>
-        <Calendar
-          tileContent={({ date }) => {
-            const isoDate = date.toISOString().split('T')[0];
-            return achievementDates.includes(isoDate) ? <span>🥋</span> : null;
-          }}
-          onActiveStartDateChange={({ activeStartDate }) => {
-            const year = activeStartDate.getFullYear();
-            const rawMonth = activeStartDate.getMonth() + 1;
-            const month = rawMonth < 10 ? `0${rawMonth}` : rawMonth.toString();
-            axios
-              .get(
-                `${process.env.REACT_APP_BACKEND_URL}/training/${extractTrainingId(
-                  props.location.pathname
-                )}?year=${year}&month=${month}`
-              )
-              .then((res) => {
-                setTraining(res.data.training);
-                setTotalVelocity(res.data.totalVelocity);
-                setAchievementDates(res.data.achievements);
-              });
-          }}
-        />
+        <h2 className="subtitle is-4 has-text-centered mt-6">達成カレンダー</h2>
+        <div className="is-flex is-flex-direction-column is-align-items-center">
+          <Calendar
+            tileContent={({ date }) => {
+              const isoDate = date.toISOString().split('T')[0];
+              return achievementDates.includes(isoDate) ? <span>🥋</span> : null;
+            }}
+            onActiveStartDateChange={({ activeStartDate }) => {
+              const year = activeStartDate.getFullYear();
+              const rawMonth = activeStartDate.getMonth() + 1;
+              const month = rawMonth < 10 ? `0${rawMonth}` : rawMonth.toString();
+              axios
+                .get(
+                  `${process.env.REACT_APP_BACKEND_URL}/training/${extractTrainingId(
+                    props.location.pathname
+                  )}?year=${year}&month=${month}`
+                )
+                .then((res) => {
+                  setTraining(res.data.training);
+                  setTotalVelocity(res.data.totalVelocity);
+                  setAchievementDates(res.data.achievements);
+                });
+            }}
+          />
+        </div>
       </div>
     </div>
   );

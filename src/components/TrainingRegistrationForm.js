@@ -26,7 +26,6 @@ const TrainingRegistrationForm = props => {
         </React.Fragment>
       )
     });
-    setTimeout(() => {props.setAlert({ active: false })}, 5000);
     e.preventDefault();
   };
 
@@ -48,7 +47,7 @@ const TrainingRegistrationForm = props => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="box py-5">
+    <form onSubmit={handleSubmit} className="box py-5 has-background-light">
       <Input
         label={'鍛錬の名前'}
         placeholder={'読書、腕立て伏せ、散歩'}

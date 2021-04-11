@@ -1,6 +1,9 @@
 const Alert = props => {
     return (
-        <div>{props.message}</div>
+        <div className="notification is-success">
+            <button className="delete" onClick={() => props.onDelete()}></button>
+            {props.message}
+        </div>
     );
 }
 
