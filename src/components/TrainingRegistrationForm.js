@@ -8,6 +8,23 @@ const TrainingRegistrationForm = props => {
   const [trainingUnit, setTrainingUnit] = useState("");
 
   const handleSubmit = (e) => {
+    // form validation
+    if (!trainingName || !trainingVelocity || !trainingUnit) {
+      props.setAlert({
+        active: true,
+        message: (
+          <React.Fragment>
+            {!trainingName ? <p>鍛錬の名前を入力してください</p> : null}
+            {!trainingVelocity ? <p>鍛錬の量を入力してください</p> : null}
+            {!trainingUnit ? <p>鍛錬の単位を入力してください</p> : null}
+          </React.Fragment>
+        ),
+        status: 'is-danger',
+      });
+      e.preventDefault();
+      return;
+    }
+
     axios
       .post(`${process.env.REACT_APP_BACKEND_URL}/training`, {
         name: trainingName,
@@ -24,8 +41,13 @@ const TrainingRegistrationForm = props => {
         <React.Fragment>
           <p>新しい鍛錬：{trainingName}を登録しました！</p>
         </React.Fragment>
-      )
+      ),
+      status: 'is-success',
     });
+    // clear input forms after submission
+    setTrainingName('');
+    setTrainingVelocity('');
+    setTrainingUnit('');
     e.preventDefault();
   };
 

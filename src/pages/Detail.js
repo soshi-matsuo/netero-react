@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Calendar from 'react-calendar';
+import * as dayjs from 'dayjs';
 import 'react-calendar/dist/Calendar.css';
 
 const extractTrainingId = (pathname) => {
@@ -42,8 +43,7 @@ const Detail = props => {
         <div className="is-flex is-flex-direction-column is-align-items-center">
           <Calendar
             tileContent={({ date }) => {
-              const isoDate = date.toISOString().split('T')[0];
-              return achievementDates.includes(isoDate) ? <span>🥋</span> : null;
+              return achievementDates.includes(dayjs(date).format('YYYY-MM-DD')) ? <span>🥋</span> : null;
             }}
             onActiveStartDateChange={({ activeStartDate }) => {
               const year = activeStartDate.getFullYear();

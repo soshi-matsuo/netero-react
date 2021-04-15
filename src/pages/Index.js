@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 const Index = () => {
   const [trainings, setTrainings] = useState([]);
   const [achievedSet, setAchievedSet] = useState(new Set());
-  const [alert, setAlert] = useState({ active: false, message: '' });
+  const [alert, setAlert] = useState({ active: false, message: '', status: '' });
 
   const getIndexData = () => {
     axios.get(`${process.env.REACT_APP_BACKEND_URL}/index`).then((res) => {
@@ -30,9 +30,10 @@ const Index = () => {
       message: (
         <React.Fragment>
           <p>今日の{trainingName}を達成しました！</p>
-          <p><Link to={`/detail/${trainingId}`}>詳細ページ</Link>でこれまでの達成を確認してみよう！</p>
+          <p><Link to={`/detail/${trainingId}`}>詳細ページ</Link>でこれまでの達成を確認しよう！</p>
         </React.Fragment>
-      )
+      ),
+      status: 'is-success',
     });
     e.preventDefault();
   };
@@ -43,7 +44,7 @@ const Index = () => {
     <div className="columns">
       <div className="column is-three-fifths is-offset-one-fifth">
         <p className="title is-3 is-size-5-mobile is-spaced has-text-centered">今日の鍛錬</p>
-        {alert.active ? <Alert message={alert.message} onDelete={deleteAlert} /> : null}
+        {alert.active ? <Alert message={alert.message} onDelete={deleteAlert} status={alert.status} /> : null}
         <div className="box has-background-light">
           <ul style={{ overflow: 'scroll', height: '30vh' }}>
             {trainings.map((tr) => (
