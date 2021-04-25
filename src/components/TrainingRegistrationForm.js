@@ -13,7 +13,7 @@ const TrainingRegistrationForm = props => {
       props.setAlert({
         active: true,
         message: (
-          <React.Fragment>
+          <React.Fragment className="japanese">
             {!trainingName ? <p>鍛錬の名前を入力してください</p> : null}
             {!trainingVelocity ? <p>鍛錬の量を入力してください</p> : null}
             {!trainingUnit ? <p>鍛錬の単位を入力してください</p> : null}
@@ -39,7 +39,7 @@ const TrainingRegistrationForm = props => {
       active: true,
       message: (
         <React.Fragment>
-          <p>新しい鍛錬：{trainingName}を登録しました！</p>
+          <p className="japanese">新しい鍛錬：{trainingName}を登録しました！</p>
         </React.Fragment>
       ),
       status: 'is-success',
@@ -91,7 +91,7 @@ const TrainingRegistrationForm = props => {
         value={trainingUnit}
         onChange={handleChange}
       />
-      <input type="submit" value="登録" className="button"/>
+      <input type="submit" value="登録" className="button japanese"/>
     </form>
   );
 };

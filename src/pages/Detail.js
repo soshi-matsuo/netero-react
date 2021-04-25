@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import Calendar from 'react-calendar';
 import * as dayjs from 'dayjs';
-import 'react-calendar/dist/Calendar.css';
+import './Calendar.css';
 
 const extractTrainingId = (pathname) => {
   return pathname.split("/")[2];
@@ -33,18 +33,19 @@ const Detail = props => {
         {training.name} {training.velocity} {training.unit}
       </h1>
       <div>
-        <h2 className="subtitle is-4 has-text-centered mt-6">これまでの達成</h2>
+        <h2 className="subtitle is-4 has-text-centered mt-6 japanese">これまでの達成</h2>
         <p className="title is-1 has-text-centered">
           {totalVelocity} {training.unit}
         </p>
       </div>
       <div>
-        <h2 className="subtitle is-4 has-text-centered mt-6">達成カレンダー</h2>
+        <h2 className="subtitle is-4 has-text-centered mt-6 japanese">達成カレンダー</h2>
         <div className="is-flex is-flex-direction-column is-align-items-center">
           <Calendar
-            tileContent={({ date }) => {
-              return achievementDates.includes(dayjs(date).format('YYYY-MM-DD')) ? <span>🥋</span> : null;
+            tileClassName={({date}) => {
+              return achievementDates.includes(dayjs(date).format('YYYY-MM-DD')) ? "has-text-white has-background-primary" : "";
             }}
+            className="box"
             onActiveStartDateChange={({ activeStartDate }) => {
               const year = activeStartDate.getFullYear();
               const rawMonth = activeStartDate.getMonth() + 1;

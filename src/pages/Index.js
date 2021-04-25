@@ -43,7 +43,7 @@ const Index = () => {
   return (
     <div className="columns">
       <div className="column is-three-fifths is-offset-one-fifth">
-        <p className="title is-3 is-size-5-mobile is-spaced has-text-centered">今日の鍛錬</p>
+        <p className="title is-3 is-size-5-mobile is-spaced has-text-centered japanese">今日の鍛錬</p>
         {alert.active ? <Alert message={alert.message} onDelete={deleteAlert} status={alert.status} /> : null}
         <div className="box has-background-light">
           <ul style={{ overflow: 'scroll', height: '30vh' }}>
@@ -61,7 +61,7 @@ const Index = () => {
                         <span className="is-size-3">✅</span>
                       </button>
                     ) : (
-                      <button onClick={(e) => handleClick(e, tr.id, tr.name)} className="button" style={{ width: "60px" }}>達成</button>
+                      <button onClick={(e) => handleClick(e, tr.id, tr.name)} className="button japanese" style={{ width: "60px" }}>達成</button>
                     )}
                   </div>
                 </div>
@@ -69,9 +69,9 @@ const Index = () => {
             ))}
           </ul>
         </div>
-        <p className="title is-3 is-size-5-mobile is-spaced has-text-centered mt-6">新しく鍛錬を登録する</p>
+        <p className="title is-3 is-size-5-mobile is-spaced has-text-centered mt-6 japanese">新しく鍛錬を登録する</p>
         <TrainingRegistrationForm getIndexData={getIndexData} setAlert={setAlert} />
-        <button type="button" className="button">ログアウトする</button>
+        <button type="button" className="button japanese">ログアウトする</button>
       </div>
     </div>
   );

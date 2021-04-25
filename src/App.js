@@ -3,16 +3,21 @@ import Index from "./pages/Index";
 import Detail from "./pages/Detail";
 import Navbar from "./components/Navbar";
 
+const isAuthenticated = () => document.cookie.match(/accessToken=(.+?)(;|$)/)?.[1];
+
 const App = () => {
   return (
     <div>
       <Navbar />
-      <Router>
-        <Switch>
-          <Route path="/detail/:id" exact component={Detail} />
-          <Route path="/" component={Index} />
-        </Switch>
-      </Router>
+      {isAuthenticated() ?
+        <Router>
+          <Switch>
+            <Route path="/detail/:id" exact component={Detail} />
+            <Route path="/" component={Index} />
+          </Switch>
+        </Router>
+        : <p>Not Authenticated Yet</p>
+      }
     </div>
   )
 }

@@ -1,6 +1,6 @@
 const Input = (props) => {
     return (
-        <div className="field">
+        <div className="field japanese">
             <label className="label has-text-grey-darker has-text-weight-medium">{props.label}</label>
             <div className="control">
                 <input className="input"
