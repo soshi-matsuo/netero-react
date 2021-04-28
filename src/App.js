@@ -9,15 +9,17 @@ const App = () => {
   return (
     <div>
       <Navbar />
-      {isAuthenticated() ?
-        <Router>
-          <Switch>
-            <Route path="/detail/:id" exact component={Detail} />
-            <Route path="/" component={Index} />
-          </Switch>
-        </Router>
-        : <p>Not Authenticated Yet</p>
-      }
+      <Router>
+        <Switch>
+          <Route path="/detail/:id" exact render={() => <Detail checkAuthentication={isAuthenticated} />} />
+          <Route path="/" render={() => {
+            const fragment = location.hash;
+            const accessToken = fragment.match(/#access_token=(.+?)&/)?.[1];
+            if (accessToken) document.cookie = `accessToken=${accessToken}`;
+            return <Index checkAuthentication={isAuthenticated} />}
+          } />
+        </Switch>
+      </Router>
     </div>
   )
 }
