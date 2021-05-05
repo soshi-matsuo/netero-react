@@ -72,7 +72,10 @@ const Index = (props) => {
           </div>
           <p className="title is-3 is-size-5-mobile is-spaced has-text-centered mt-6 japanese">新しく鍛錬を登録する</p>
           <TrainingRegistrationForm getIndexData={getIndexData} setAlert={setAlert} />
-          <button type="button" className="button japanese">ログアウトする</button>
+          <button type="button" className="button japanese" onClick={() => {
+            document.cookie = "accessToken=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+            window.location.replace('');
+          }}>ログアウトする</button>
         </div>
       </div>
     );

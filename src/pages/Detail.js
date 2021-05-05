@@ -27,7 +27,7 @@ const Detail = props => {
       });
   }, []);
 
-  // if (props.checkAuthentication()) {
+  if (props.checkAuthentication()) {
     return (
       <div>
         <h1 className="title is-1 has-text-centered">
@@ -68,15 +68,15 @@ const Detail = props => {
         </div>
       </div>
     );
-  // } else {
-  //   return (
-  //     <div>
-  //       <p>Not authenticated yet</p>
-  //       <p>下のボタンからログインしてください</p>
-  //       <a href="https://netero.jp.auth0.com/authorize?response_type=token&client_id=PStSWdvj7dggxO2TAOWtV2bjC8nwi5dl&redirect_uri=http://localhost:3000&nonce=safsaf&audience=https://netero-implicit-auth.jp">sadfsdaf</a>
-  //     </div>
-  //   )
-  // }
+  } else {
+    return (
+      <div>
+        <p>Not authenticated yet</p>
+        <p>下のボタンからログインしてください</p>
+        <a href="https://netero.jp.auth0.com/authorize?response_type=token&client_id=PStSWdvj7dggxO2TAOWtV2bjC8nwi5dl&redirect_uri=http://localhost:3000&nonce=safsaf&audience=https://netero-implicit-auth.jp">sadfsdaf</a>
+      </div>
+    )
+  }
 };
 
 export default Detail;
