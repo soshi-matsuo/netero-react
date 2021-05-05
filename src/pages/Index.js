@@ -1,4 +1,4 @@
-import axios from "axios";
+import axiosTemplate from "../context/axiosTemplate";
 import React, { useState, useEffect } from "react";
 import TrainingRegistrationForm from "../components/TrainingRegistrationForm";
 import Alert from "../components/Alert";
@@ -10,7 +10,7 @@ const Index = (props) => {
   const [alert, setAlert] = useState({ active: false, message: '', status: '' });
 
   const getIndexData = () => {
-    axios.get(`${process.env.REACT_APP_BACKEND_URL}/index`).then((res) => {
+    axiosTemplate.get('/index').then((res) => {
       setTrainings(res.data.trainings);
       setAchievedSet(new Set(res.data.achievedIds));
     });
@@ -19,8 +19,8 @@ const Index = (props) => {
   useEffect(getIndexData, []);
 
   const handleClick = (e, trainingId, trainingName) => {
-    axios
-      .post(`${process.env.REACT_APP_BACKEND_URL}/achievement/${trainingId}`)
+    axiosTemplate
+      .post(`/achievement/${trainingId}`)
       .then((res) => {
         if (res.status !== 200) return;
         getIndexData();

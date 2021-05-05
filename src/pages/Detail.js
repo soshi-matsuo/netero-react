@@ -1,4 +1,4 @@
-import axios from "axios";
+import axiosTemplate from "../context/axiosTemplate";
 import { useState, useEffect } from "react";
 import Calendar from 'react-calendar';
 import * as dayjs from 'dayjs';
@@ -14,9 +14,9 @@ const Detail = props => {
   const [achievementDates, setAchievementDates] = useState([]);
 
   useEffect(() => {
-    axios
+    axiosTemplate
       .get(
-        `${process.env.REACT_APP_BACKEND_URL}/training/${extractTrainingId(
+        `/training/${extractTrainingId(
           props.location.pathname
         )}`
       )
@@ -27,7 +27,7 @@ const Detail = props => {
       });
   }, []);
 
-  if (props.checkAuthentication()) {
+  // if (props.checkAuthentication()) {
     return (
       <div>
         <h1 className="title is-1 has-text-centered">
@@ -51,9 +51,9 @@ const Detail = props => {
                 const year = activeStartDate.getFullYear();
                 const rawMonth = activeStartDate.getMonth() + 1;
                 const month = rawMonth < 10 ? `0${rawMonth}` : rawMonth.toString();
-                axios
+                axiosTemplate
                   .get(
-                    `${process.env.REACT_APP_BACKEND_URL}/training/${extractTrainingId(
+                    `/training/${extractTrainingId(
                       props.location.pathname
                     )}?year=${year}&month=${month}`
                   )
@@ -68,15 +68,15 @@ const Detail = props => {
         </div>
       </div>
     );
-  } else {
-    return (
-      <div>
-        <p>Not authenticated yet</p>
-        <p>下のボタンからログインしてください</p>
-        <a href="https://netero.jp.auth0.com/authorize?response_type=token&client_id=PStSWdvj7dggxO2TAOWtV2bjC8nwi5dl&redirect_uri=http://localhost:3000&nonce=safsaf&audience=https://netero-implicit-auth.jp">sadfsdaf</a>
-      </div>
-    )
-  }
+  // } else {
+  //   return (
+  //     <div>
+  //       <p>Not authenticated yet</p>
+  //       <p>下のボタンからログインしてください</p>
+  //       <a href="https://netero.jp.auth0.com/authorize?response_type=token&client_id=PStSWdvj7dggxO2TAOWtV2bjC8nwi5dl&redirect_uri=http://localhost:3000&nonce=safsaf&audience=https://netero-implicit-auth.jp">sadfsdaf</a>
+  //     </div>
+  //   )
+  // }
 };
 
 export default Detail;

@@ -1,4 +1,4 @@
-import axios from "axios";
+import axiosTemplate from "../context/axiosTemplate";
 import React, { useState } from "react";
 import Input from "./Input";
 
@@ -25,8 +25,8 @@ const TrainingRegistrationForm = props => {
       return;
     }
 
-    axios
-      .post(`${process.env.REACT_APP_BACKEND_URL}/training`, {
+    axiosTemplate
+      .post('/training', {
         name: trainingName,
         velocity: trainingVelocity,
         unit: trainingUnit,

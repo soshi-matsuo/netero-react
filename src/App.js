@@ -11,7 +11,7 @@ const App = () => {
       <Navbar />
       <Router>
         <Switch>
-          <Route path="/detail/:id" exact render={() => <Detail checkAuthentication={isAuthenticated} />} />
+          <Route path="/detail/:id" exact render={({location}) => <Detail location={location} checkAuthentication={isAuthenticated} />} />
           <Route path="/" render={() => {
             const fragment = location.hash;
             const accessToken = fragment.match(/#access_token=(.+?)&/)?.[1];
