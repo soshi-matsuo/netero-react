@@ -1,4 +1,5 @@
 import axiosTemplate from "../context/axiosTemplate";
+import { extractFromCookie } from "../context/accessToken";
 import { useState, useEffect } from "react";
 import Calendar from 'react-calendar';
 import * as dayjs from 'dayjs';
@@ -15,11 +16,9 @@ const Detail = props => {
 
   useEffect(() => {
     axiosTemplate
-      .get(
-        `/training/${extractTrainingId(
-          props.location.pathname
-        )}`
-      )
+      .get(`/training/${extractTrainingId(props.location.pathname)}`, {
+        headers: { Authorization: `Bearer ${extractFromCookie()}` },
+      })
       .then((res) => {
         setTraining(res.data.training);
         setTotalVelocity(res.data.totalVelocity);

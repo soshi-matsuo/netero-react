@@ -2,8 +2,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Detail from "./pages/Detail";
 import Navbar from "./components/Navbar";
-
-const isAuthenticated = () => document.cookie.match(/accessToken=(.+?)(;|$)/)?.[1];
+import { isAuthenticated } from "./context/accessToken"
 
 const App = () => {
   return (

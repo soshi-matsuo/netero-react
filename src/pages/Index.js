@@ -1,8 +1,9 @@
 import axiosTemplate from "../context/axiosTemplate";
+import { extractFromCookie } from "../context/accessToken";
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import TrainingRegistrationForm from "../components/TrainingRegistrationForm";
 import Alert from "../components/Alert";
-import { Link } from "react-router-dom";
 
 const Index = (props) => {
   const [trainings, setTrainings] = useState([]);
@@ -10,7 +11,9 @@ const Index = (props) => {
   const [alert, setAlert] = useState({ active: false, message: '', status: '' });
 
   const getIndexData = () => {
-    axiosTemplate.get('/index').then((res) => {
+    axiosTemplate.get('/index', {
+      headers: { Authorization: `Bearer ${extractFromCookie()}` },
+    }).then((res) => {
       setTrainings(res.data.trainings);
       setAchievedSet(new Set(res.data.achievedIds));
     });
@@ -20,7 +23,9 @@ const Index = (props) => {
 
   const handleClick = (e, trainingId, trainingName) => {
     axiosTemplate
-      .post(`/achievement/${trainingId}`)
+      .post(`/achievement/${trainingId}`, null, {
+        headers: { Authorization: `Bearer ${extractFromCookie()}` },
+      })
       .then((res) => {
         if (res.status !== 200) return;
         getIndexData();

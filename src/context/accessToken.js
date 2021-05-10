@@ -2,7 +2,7 @@ const extractFromFragment = (fragment) => fragment.match(/#access_token=(.+?)&/)
 
 const extractFromCookie = () => document.cookie.match(/accessToken=(.+?)(;|$)/)?.[1];
 
-// TODO should verify the payload of the access token JWT.
+// TODO should verify exp claim of the access token JWT.
 const isAuthenticated = () => extractFromCookie();
 
 export {

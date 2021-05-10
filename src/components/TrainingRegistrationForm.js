@@ -1,4 +1,5 @@
 import axiosTemplate from "../context/axiosTemplate";
+import { extractFromCookie } from "../context/accessToken";
 import React, { useState } from "react";
 import Input from "./Input";
 
@@ -30,6 +31,8 @@ const TrainingRegistrationForm = props => {
         name: trainingName,
         velocity: trainingVelocity,
         unit: trainingUnit,
+      }, {
+        headers: { Authorization: `Bearer ${extractFromCookie()}` },
       })
       .then((res) => {
         if (res.status !== 200) return;
