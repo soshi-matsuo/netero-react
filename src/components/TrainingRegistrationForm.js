@@ -1,5 +1,4 @@
-import axiosTemplate from "../context/axiosTemplate";
-import { extractFromCookie } from "../context/accessToken";
+import {post} from "../context/axiosTemplate";
 import React, { useState } from "react";
 import Input from "./Input";
 
@@ -26,13 +25,10 @@ const TrainingRegistrationForm = props => {
       return;
     }
 
-    axiosTemplate
-      .post('/training', {
+    post('/training', {
         name: trainingName,
         velocity: trainingVelocity,
         unit: trainingUnit,
-      }, {
-        headers: { Authorization: `Bearer ${extractFromCookie()}` },
       })
       .then((res) => {
         if (res.status !== 200) return;
